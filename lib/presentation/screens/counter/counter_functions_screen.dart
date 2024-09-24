@@ -42,38 +42,59 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              shape: const StadiumBorder(),
+            CustomButtom(
+              icon: Icons.refresh_rounded,
               onPressed: () {
-                setState(() {
-                  clickCounter++;
-                });
+                clickCounter = 0;
+                setState(() {});
               },
-              child: const Icon(Icons.plus_one),
             ),
             const SizedBox(
               height: 20,
             ),
-            FloatingActionButton(
+            CustomButtom(
+              icon: Icons.exposure_minus_1,
               onPressed: () {
-                setState(() {
-                  clickCounter = clickCounter - 1;
-                });
+                if (clickCounter == 0) return;
+                clickCounter--;
+                setState(() {});
               },
-              child: const Icon(Icons.exposure_minus_1),
             ),
             const SizedBox(
               height: 20,
             ),
-            FloatingActionButton(
+            CustomButtom(
+              icon: Icons.plus_one,
               onPressed: () {
-                setState(() {
-                  clickCounter = 0;
-                });
+                clickCounter++;
+                setState(() {});
               },
-              child: const Icon(Icons.refresh_outlined),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ));
+  }
+}
+
+class CustomButtom extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  const CustomButtom({
+    super.key,
+    required this.icon,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      //shape: const StadiumBorder(),
+      enableFeedback: false,
+      onPressed: onPressed,
+      child: Icon(icon),
+    );
   }
 }
